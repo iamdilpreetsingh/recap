@@ -1,6 +1,10 @@
 /* src/panel/index.css */
 @import "tailwindcss";
 
+.text-recap { color: #6C47FF; }
+.bg-recap { background-color: #6C47FF; }
+.border-recap { border-color: #6C47FF; }
+
 html, body, #root {
   margin: 0;
   padding: 0;

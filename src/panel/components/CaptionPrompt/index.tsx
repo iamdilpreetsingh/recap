@@ -1,7 +1,13 @@
 export default function CaptionPrompt() {
-  const handleEnable = () => {
-    if (typeof chrome !== "undefined" && chrome.runtime?.id) {
-      chrome.runtime.sendMessage({ type: "ENABLE_CAPTIONS" }).catch(() => {});
+  const handleEnableCaptions = () => {
+    const btn = document.querySelector<HTMLElement>(
+      '[aria-label="Turn on captions"]',
+    );
+
+    if (btn) {
+      btn.click();
+    } else {
+      console.warn("[Recap] CC button not found");
     }
   };
 
@@ -16,8 +22,8 @@ export default function CaptionPrompt() {
         Meet to get started.
       </p>
       <button
-        onClick={handleEnable}
-        className="px-4 py-2 bg-neutral-900 text-white text-xs font-medium rounded-lg hover:bg-neutral-700 transition-colors"
+        onClick={handleEnableCaptions}
+        className="px-4 py-2 bg-recap text-white text-xs font-medium rounded-lg hover:bg-neutral-700 transition-colors cursor-pointer"
       >
         Enable Captions
       </button>

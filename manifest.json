@@ -17,7 +17,7 @@
   "content_scripts": [
     {
       "matches": ["https://meet.google.com/*"],
-      "js": ["src/content/content.tsx"]
+      "js": ["src/content/index.tsx"]
     }
   ],
   "permissions": ["sidePanel", "storage", "tabs"],
