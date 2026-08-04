@@ -1,5 +1,6 @@
 import type { Caption } from "../../types/global";
 import { useMeetingStore } from "../../store/meetingStore";
+import { appendCaption } from "../../db";
 
 const STABILITY_DELAY_MS = 1000;
 const AVATAR_FINGERPRINT = 'img[src*="googleusercontent.com"]';
@@ -13,6 +14,7 @@ type CaptionState = {
   committedText: string;
   timer: number | null;
 };
+
 const captionStates = new WeakMap<Element, CaptionState>();
 const activeTimers = new Set<number>();
 
@@ -24,7 +26,6 @@ function commitDeltaToState(el: Element, state: CaptionState) {
 
   if (!pending || pending === committed) return;
 
-  // at pause time, Meet has finalized — safe to slice by length
   const delta = committed ? pending.slice(committed.length).trim() : pending;
 
   if (!delta) return;
@@ -35,8 +36,14 @@ function commitDeltaToState(el: Element, state: CaptionState) {
     text: delta,
     timestamp: Date.now(),
   };
+  const { activeMeetingId, isRecording } = useMeetingStore.getState();
 
+  if (!isRecording) return;
   useMeetingStore.getState().addCaption(caption);
+
+  if (activeMeetingId) {
+    appendCaption(activeMeetingId, caption);
+  }
 
   if (typeof chrome !== "undefined" && chrome.runtime?.id) {
     chrome.runtime
@@ -44,7 +51,7 @@ function commitDeltaToState(el: Element, state: CaptionState) {
       .catch((err) => console.error("sendMessage error:", err));
   }
 
-  state.committedText = pending; // move baseline to full current text
+  state.committedText = pending;
 }
 
 function getCaptionId(el: Element): string {
@@ -109,6 +116,7 @@ function handleCaptionCandidate(el: Element) {
 export function startObserving(container: Element) {
   console.log("[Recap] 🎙 Starting caption observer");
   useMeetingStore.getState().setIsConnected(true);
+  useMeetingStore.getState().setIsRecording(true);
 
   observer = new MutationObserver(() => {
     const items = new Set<Element>();
@@ -145,5 +153,6 @@ export function stopObserving() {
   }
   activeTimers.forEach((id) => clearTimeout(id));
   activeTimers.clear();
+  useMeetingStore.getState().setIsRecording(false);
   useMeetingStore.getState().setIsConnected(false);
 }

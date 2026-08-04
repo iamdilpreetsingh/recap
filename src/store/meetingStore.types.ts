@@ -5,6 +5,8 @@ export interface MeetingState {
   captionsEnabled: boolean;
   isConnected: boolean;
   captions: Caption[];
+  activeMeetingId: string | null;
+  isRecording: boolean;
 
   // actions
   setMeetingActive: (active: boolean) => void;
@@ -12,4 +14,6 @@ export interface MeetingState {
   setIsConnected: (connected: boolean) => void;
   addCaption: (caption: Caption) => void;
   clearCaptions: () => void;
+  setActiveMeetingId: (id: string | null) => void;
+  setIsRecording: (connected: boolean) => void;
 }
