@@ -2,20 +2,25 @@ import type { PanelProps } from "./Panel.types";
 import PanelShell from "../PanelShell";
 import CaptionPrompt from "../CaptionPrompt";
 // import BottomNav from "../BottomNav";
-import { useCaptionStream } from "../../../hooks";
+import { useCaptionStream, useDrag } from "../../../hooks";
 import { useMeetingStore } from "../../../store/meetingStore";
 import { getSpeakerColor, groupedCaptions } from "./Panel.helpers";
 
 export default function Panel({ open, onClose }: PanelProps) {
   const { captions, bottomRef } = useCaptionStream();
   const captionsEnabled = useMeetingStore((state) => state.captionsEnabled);
+  const { position, onMousedown } = useDrag();
 
   if (!open) return null;
 
   return (
     <div
       className="fixed right-0 h-[90vh] w-[320px] rounded-xl shadow-xl z-[999999]"
-      style={{ top: "50%", transform: "translateY(-50%)" }}
+      style={{
+        top: "50%",
+        transform: `translateY(-50%) translate(${position.x}px, ${position.y}px)`,
+      }}
+      onMouseDown={onMousedown}
     >
       <PanelShell onMinimize={onClose}>
         {!captionsEnabled ? (
