@@ -1,10 +1,13 @@
 import { startObserving, stopObserving, observer } from "./captionObserver";
 import { useMeetingStore } from "../../store/meetingStore";
+import { onMeetingEnd, onMeetingStart } from "../meetingLifecycle";
 
 export const CAPTIONS_CONTAINER_SELECTOR =
   '[role="region"][aria-label="Captions"]';
+const CALL_CONTROLS_SELECTOR = '[aria-label="Call controls"]';
 
 let bodyObserver: MutationObserver | null = null;
+let meetingActive = false;
 
 function syncCaptionsEnabled() {
   const container = document.querySelector(CAPTIONS_CONTAINER_SELECTOR);
@@ -17,11 +20,28 @@ function syncCaptionsEnabled() {
   }
 }
 
+function syncMeetingActive() {
+  const callControls = document.querySelector(CALL_CONTROLS_SELECTOR);
+  const isActive = !!callControls;
+
+  if (isActive && !meetingActive) {
+    meetingActive = true;
+    onMeetingStart();
+  } else if (!isActive && meetingActive) {
+    meetingActive = false;
+    onMeetingEnd();
+  }
+}
+
+function onDomChange() {
+  syncCaptionsEnabled();
+  syncMeetingActive();
+}
+
 export function bootstrapObserver() {
-  syncCaptionsEnabled(); // sync on boot
+  onDomChange(); // sync on boot
 
-  bodyObserver = new MutationObserver(syncCaptionsEnabled);
-
+  bodyObserver = new MutationObserver(onDomChange);
   bodyObserver.observe(document.body, { childList: true, subtree: true });
 }
 

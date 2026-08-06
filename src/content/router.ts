@@ -4,8 +4,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       '[aria-label="Turn on captions"]',
     );
 
-    console.log({ btn });
-
     if (btn) {
       btn.click();
       sendResponse({ ok: true });

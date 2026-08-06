@@ -15,7 +15,7 @@ type CaptionState = {
   timer: number | null;
 };
 
-const captionStates = new WeakMap<Element, CaptionState>();
+const captionStates = new Map<Element, CaptionState>();
 const activeTimers = new Set<number>();
 
 export let observer: MutationObserver | null = null;
@@ -116,7 +116,9 @@ function handleCaptionCandidate(el: Element) {
 export function startObserving(container: Element) {
   console.log("[Recap] 🎙 Starting caption observer");
   useMeetingStore.getState().setIsConnected(true);
-  useMeetingStore.getState().setIsRecording(true);
+  if (!useMeetingStore.getState().showResumePrompt) {
+    useMeetingStore.getState().setIsRecording(true);
+  }
 
   observer = new MutationObserver(() => {
     const items = new Set<Element>();
@@ -155,4 +157,14 @@ export function stopObserving() {
   activeTimers.clear();
   useMeetingStore.getState().setIsRecording(false);
   useMeetingStore.getState().setIsConnected(false);
+}
+
+export function resumeObserving() {
+  activeTimers.forEach((id) => clearTimeout(id));
+  activeTimers.clear();
+
+  captionStates.forEach((state) => {
+    state.committedText = state.pendingText;
+    state.timer = null;
+  });
 }

@@ -1,1 +1,6 @@
-export { createMeeting, appendCaption, closeMeeting } from "./meetings";
+export {
+  createMeeting,
+  appendCaption,
+  closeMeeting,
+  getMeeting,
+} from "./meetings";

@@ -7,6 +7,7 @@ export interface MeetingState {
   captions: Caption[];
   activeMeetingId: string | null;
   isRecording: boolean;
+  showResumePrompt: boolean;
 
   // actions
   setMeetingActive: (active: boolean) => void;
@@ -16,4 +17,6 @@ export interface MeetingState {
   clearCaptions: () => void;
   setActiveMeetingId: (id: string | null) => void;
   setIsRecording: (connected: boolean) => void;
+  setShowResumePrompt: (val: boolean) => void;
+  loadCaptions: (captions: Caption[]) => void;
 }

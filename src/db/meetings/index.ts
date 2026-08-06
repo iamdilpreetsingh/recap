@@ -7,6 +7,12 @@ export const dbPromise = openDB("meetings", 1, {
   },
 });
 
+export async function getMeeting(id: string) {
+  const db = await dbPromise;
+  const meeting = await db.get("meeting", id);
+  return meeting ?? null;
+}
+
 export async function createMeeting(id: string) {
   const db = await dbPromise;
   await db.add("meeting", {
@@ -37,4 +43,9 @@ export async function closeMeeting(id: string) {
   if (!meeting) throw new Error("Meeting not found");
 
   await db.put("meeting", { ...meeting, endedAt: Date.now() });
+}
+
+export async function deleteMeeting(id: string) {
+  const db = await dbPromise;
+  await db.delete("meeting", id);
 }

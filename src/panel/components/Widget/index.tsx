@@ -9,14 +9,15 @@ export default function Widget({ hidden, onOpenPanel }: WidgetProps) {
     <div
       style={{
         position: "fixed",
-        left: `${window.innerWidth - WIDGET_WIDTH}px`,
-        top: `${window.innerHeight / 2}px`,
+        right: 0,
+        top: "50%",
+        transform: "translateY(-50%)",
         width: `${WIDGET_WIDTH}px`,
         zIndex: 999999,
         cursor: "pointer",
         display: hidden ? "none" : "block",
       }}
-      className="flex items-center justify-center bg-white backdrop-blur-md rounded-l-lg shadow-[0_8px_30px_rgba(59,130,246,0.25)] overflow-hidden font-sans select-none border-2 border-blue-500/30 cursor-pointer"
+      className="flex items-center justify-center bg-white backdrop-blur-md rounded-l-lg shadow-[0_8px_30px_rgba(59,130,246,0.25)] overflow-hidden font-sans select-none border-2 border-blue-500/30"
     >
       <button
         onClick={onOpenPanel}

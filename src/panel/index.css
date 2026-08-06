@@ -4,6 +4,7 @@
 .text-recap { color: #6C47FF; }
 .bg-recap { background-color: #6C47FF; }
 .border-recap { border-color: #6C47FF; }
+.bg-recap-light { background-color: #ebe5ff; }
 
 html, body, #root {
   margin: 0;

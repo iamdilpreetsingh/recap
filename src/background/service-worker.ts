@@ -1,5 +1,4 @@
 console.log("[Recap] Service worker started");
-console.log("Registering onMessage listener");
 
 chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: true })
@@ -41,13 +40,10 @@ function getOrCreateSession(tabUrl: string): MeetingSession {
 }
 
 function addCaption(caption: Caption, tabUrl: string, tabId: number) {
-  console.log({ caption, tabUrl });
-
   const session = getOrCreateSession(tabUrl);
 
   session.captions.push(caption);
   session.lastActivityAt = Date.now();
-  console.log("session in sw", session);
   broadcastToSidePanel(tabId, { type: "NEW_CAPTION", data: caption });
 }
 
@@ -68,10 +64,7 @@ function broadcastToSidePanel(tabId: number, message: unknown) {
 // ---------------------------------------------------------------------------
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log("🔥 Received", message);
   if (message.type === "CAPTION") {
-    console.log("in SW", message);
-
     const caption = message.data as Caption;
     const tabUrl = sender.tab?.url || "unknown";
     const tabId = sender.tab?.id || undefined;
@@ -85,7 +78,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.type === "OPEN_SIDE_PANEL") {
-    console.log("OPEN_SIDE_PANEL message received", sender);
     const tabId = sender.tab?.id;
     if (tabId) {
       chrome.sidePanel
@@ -106,15 +98,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 
-  if (message.type === "GET_HISTORY") {
-    // TODO: pull from IndexedDB later
-    sendResponse({ ok: true, data: [] });
-    return true;
-  }
-
-  console.log("[Recap SW] Unknown message:", message);
   sendResponse({ ok: false, error: "unknown message type" });
   return true;
 });
-
-console.log("onMessage listener registered");

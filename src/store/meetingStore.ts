@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { MeetingState } from "./meetingStore.types";
+import type { Caption } from "../types/global";
 
 export const useMeetingStore = create<MeetingState>((set) => ({
   meetingActive: false,
@@ -8,6 +9,7 @@ export const useMeetingStore = create<MeetingState>((set) => ({
   captions: [],
   activeMeetingId: null,
   isRecording: false,
+  showResumePrompt: false,
 
   // actions
   setMeetingActive: (active) => set({ meetingActive: active }),
@@ -18,4 +20,6 @@ export const useMeetingStore = create<MeetingState>((set) => ({
   clearCaptions: () => set({ captions: [] }),
   setActiveMeetingId: (id) => set({ activeMeetingId: id }),
   setIsRecording: (recording) => set({ isRecording: recording }),
+  setShowResumePrompt: (val) => set({ showResumePrompt: val }),
+  loadCaptions: (captions: Caption[]) => set({ captions }),
 }));
