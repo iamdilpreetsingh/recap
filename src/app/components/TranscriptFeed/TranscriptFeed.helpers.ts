@@ -1,5 +1,5 @@
 import type { Caption } from "../../../types/global";
-import { SpeakerColors } from "./Panel.constants";
+import { SpeakerColors } from "./TranscriptionFeed.constants";
 
 export function getSpeakerColor(speaker: string): string {
   let hash = 0;

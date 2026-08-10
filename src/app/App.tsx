@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Widget from "./components/Widget";
-import Panel from "./components/Panel";
+import { Panel, Widget } from "./components";
 
 export default function App() {
   const [isPanelOpen, setIsPanelOpen] = useState(false);

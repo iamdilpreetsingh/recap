@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+.text-recap {
+  color: #6c47ff;
+}
+.bg-recap {
+  background-color: #6c47ff;
+}
+.border-recap {
+  border-color: #6c47ff;
+  border-style: solid;
+}
+.bg-recap-light {
+  background-color: #ebe5ff;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

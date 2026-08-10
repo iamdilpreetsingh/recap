@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import tailwindStyles from "../../panel/index.css?inline";
-import App from "../../panel/App";
+import tailwindStyles from "../../app/index.css?inline";
+import App from "../../app/App";
 
 const SHADOW_HOST_ID = "recap-widget-host";
 let widgetHost: HTMLElement | null = null;

@@ -1,5 +1,6 @@
 import { openDB } from "idb";
 import type { Caption } from "../../types/global";
+import type { MeetingRecord } from "./meeting.types";
 
 export const dbPromise = openDB("meetings", 1, {
   upgrade(db) {
@@ -48,4 +49,10 @@ export async function closeMeeting(id: string) {
 export async function deleteMeeting(id: string) {
   const db = await dbPromise;
   await db.delete("meeting", id);
+}
+
+export async function getAllMeetings(): Promise<MeetingRecord[]> {
+  const db = await dbPromise;
+  const all = await db.getAll("meeting");
+  return all.sort((a, b) => b.startedAt - a.startedAt);
 }

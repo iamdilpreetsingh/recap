@@ -10,8 +10,6 @@ export async function onMeetingStart() {
   if (!meetingId) return;
 
   injectWidget();
-
-  // already handled this meeting URL — skip
   if (meetingId === handledMeetingUrl) return;
   handledMeetingUrl = meetingId;
 
@@ -36,11 +34,11 @@ export function onMeetingEnd() {
 async function handleMeetingDetected(meetingId: string) {
   const existing = await getMeeting(meetingId);
 
-  if (existing) {
+  if (existing && existing.captions.length !== 0) {
     useMeetingStore.getState().loadCaptions(existing.captions);
     useMeetingStore.getState().setShowResumePrompt(true);
     useMeetingStore.getState().setIsRecording(false);
-  } else {
+  } else if (!existing) {
     await createMeeting(meetingId);
   }
 

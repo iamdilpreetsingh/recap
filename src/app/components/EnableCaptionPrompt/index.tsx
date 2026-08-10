@@ -1,4 +1,4 @@
-export default function CaptionPrompt() {
+export default function EnableCaptionPrompt() {
   const handleEnableCaptions = () => {
     const btn = document.querySelector<HTMLElement>(
       '[aria-label="Turn on captions"]',

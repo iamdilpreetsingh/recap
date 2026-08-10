@@ -3,4 +3,6 @@ export {
   appendCaption,
   closeMeeting,
   getMeeting,
+  deleteMeeting,
+  getAllMeetings,
 } from "./meetings";
