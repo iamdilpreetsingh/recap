@@ -43,7 +43,7 @@ export default function Tabs({ tabs }: TabsProps) {
                 ? "text-recap border-b-2 border-recap"
                 : tab.disabled
                   ? "text-neutral-300 cursor-not-allowed"
-                  : "text-neutral-400 hover:text-neutral-600"
+                  : "text-neutral-400 hover:text-neutral-600 cursor-pointer"
             }`}
           >
             {tab.label}
