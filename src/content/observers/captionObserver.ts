@@ -1,7 +1,7 @@
 import type { Caption } from "../../types/global";
 import { useMeetingStore } from "../../store/meetingStore";
 
-const STABILITY_DELAY_MS = 2000;
+const STABILITY_DELAY_MS = 1500;
 const AVATAR_FINGERPRINT = 'img[src*="googleusercontent.com"]';
 
 let captionIdCounter = 0;

@@ -25,11 +25,11 @@ export default function App() {
         width: `${WIDGET_WIDTH}px`,
         transform: `translateX(-50%) translate(${position.x}px, ${position.y}px)`,
       }}
-      className="p-2.5 pt-1 rounded-xl bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.3)] select-none fixed max-h-[400px] z-[999999] cursor-grab flex flex-col overflow-hidden"
+      className="rounded-lg bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.3)] select-none fixed max-h-[400px] z-[999999] cursor-grab flex flex-col overflow-hidden"
     >
       {/* Sticky Header */}
-      <div className="flex items-center justify-between shrink-0 sticky top-0 pb-1">
-        <span className="text-white font-bold text-[20px] tracking-tight">
+      <div className="p-2.5 flex items-center justify-between shrink-0 sticky top-0">
+        <span className="text-white font-bold text-[20px] tracking-tight leading-none">
           Recap
         </span>
 

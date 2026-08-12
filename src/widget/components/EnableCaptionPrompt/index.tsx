@@ -15,7 +15,7 @@ export default function EnableCaptionPrompt() {
   };
 
   return (
-    <div className="mt-2 rounded-2xl bg-zinc text-center p-3">
+    <div className="m-2.5 rounded-2xl bg-zinc text-center p-3">
       <p className="text-white text-sm leading-relaxed m-0">
         Enable Google captions to start transcribing on Recap
       </p>

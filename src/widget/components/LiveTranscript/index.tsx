@@ -7,6 +7,7 @@ import TranscriptionPausedBanner from "../TranscriptionPausedBanner";
 export default function LiveTranscript() {
   const isRecording = useMeetingStore((s) => s.isRecording);
   const showResumePrompt = useMeetingStore((s) => s.showResumePrompt);
+  const captionsEnabled = useMeetingStore((s) => s.captionsEnabled);
   const pausedBannerRef = useRef<HTMLDivElement>(null);
   const showPausedBanner = !isRecording && !showResumePrompt;
 
@@ -21,16 +22,20 @@ export default function LiveTranscript() {
   }, [showPausedBanner]);
 
   return (
-    <div className="flex flex-col flex-1 min-h-0">
-      {showPausedBanner && (
-        <div ref={pausedBannerRef}>
-          <TranscriptionPausedBanner />
-        </div>
+    <div className="flex m-2.5 flex-col flex-1 min-h-0">
+      {captionsEnabled && (
+        <>
+          {showPausedBanner && (
+            <div ref={pausedBannerRef}>
+              <TranscriptionPausedBanner />
+            </div>
+          )}
+
+          {showResumePrompt && <RejoinMeetingBanner />}
+
+          <TranscriptFeed />
+        </>
       )}
-
-      {showResumePrompt && <RejoinMeetingBanner />}
-
-      <TranscriptFeed />
     </div>
   );
 }

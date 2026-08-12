@@ -22,7 +22,7 @@ export default function TranscriptFeed({
   const isDark = variant === "dark";
 
   const bubbleClass = isDark
-    ? "w-full rounded-2xl bg-zinc px-3 py-3 space-y-2"
+    ? "w-full mt-2 rounded-2xl bg-zinc px-3 py-3 space-y-2"
     : "bg-white rounded-xl px-4 py-3 border border-neutral-200 space-y-2";
 
   const textClass = isDark ? "text-white" : "text-neutral-800";
@@ -33,11 +33,11 @@ export default function TranscriptFeed({
 
   return (
     <div
-      className={`flex-1 overflow-y-auto mt-2 min-h-0 space-y-2 ${!isDark ? "bg-[#f7f7f8] px-4" : ""}`}
+      className={`flex-1 overflow-y-auto min-h-0 space-y-2 ${!isDark ? "bg-[#f7f7f8] p-4" : ""}`}
     >
       {captions.length === 0 && !showResumePrompt && isRecording ? (
         <div className={bubbleClass}>
-          <p className={`text-sm leading-relaxed ${textClass}`}>
+          <p className={`text-sm leading-relaxed text-center ${textClass}`}>
             {readOnly
               ? "No captions in this meeting."
               : "Start talking during the meeting to see the transcript here."}
@@ -47,7 +47,7 @@ export default function TranscriptFeed({
         <>
           {showResumePrompt && (
             <p
-              className={`text-[11px] font-semibold tracking-widest uppercase whitespace-nowrap px-1 ${timeClass}`}
+              className={`text-[11px] mt-2 font-semibold tracking-widest uppercase whitespace-nowrap px-1 ${timeClass}`}
             >
               Earlier in this meeting
             </p>
