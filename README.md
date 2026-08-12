@@ -1,1 +1,1 @@
-A lightweight meeting note-taking Chrome extension that captures live captions from Google Meet. Built with React, TypeScript, and Manifest V3, it provides a simple way to capture and organise meeting conversations in real time.
+A lightweight meeting note-taker Chrome extension that captures live captions from Google Meet. Built with React, TypeScript, and Manifest V3, it provides a simple way to capture and organise meeting conversations in real time.
