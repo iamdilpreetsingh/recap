@@ -7,7 +7,7 @@ export default function useDrag() {
   const lastPosition = useRef<Position>({ x: 0, y: 0 });
 
   useEffect(() => {
-    const onMouseMove = (e) => {
+    const onMouseMove = (e: MouseEvent) => {
       if (!isDragging) return;
 
       const deltaX = e.clientX - lastPosition.current.x;
@@ -33,7 +33,7 @@ export default function useDrag() {
     };
   }, [isDragging]);
 
-  const onMousedown = (e) => {
+  const onMousedown = (e: React.MouseEvent) => {
     setIsDragging(true);
     lastPosition.current = { x: e.clientX, y: e.clientY };
   };
