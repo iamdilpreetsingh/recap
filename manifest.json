@@ -4,12 +4,19 @@
   "version": "0.0.1",
   "action": {
     "default_title": "Open Recap panel",
+    "default_popup": "src/popup/index.html",
     "default_icon": {
-      "16": "src/Assets/recapLogo.png",
-      "32": "src/Assets/recapLogo.png",
-      "48": "src/Assets/recapLogo.png"
+      "16": "src/Assets/recapLogo16.png",
+      "128": "src/Assets/recapLogo128.png"
     }
   },
+  "icons": {
+    "16": "src/Assets/recapLogo16.png",
+    "32": "src/Assets/recapLogo32.png",
+    "48": "src/Assets/recapLogo128.png",
+    "128": "src/Assets/recapLogo128.png"
+  },
+
   "background": {
     "service_worker": "src/background/service-worker.ts",
     "type": "module"
@@ -20,18 +27,16 @@
       "js": ["src/content/index.tsx"]
     }
   ],
-  "permissions": ["sidePanel", "storage", "tabs"],
+  "permissions": ["storage", "tabs"],
   "host_permissions": ["https://meet.google.com/*"],
   "web_accessible_resources": [
     {
       "resources": ["panel/*", "assets/*"],
       "matches": ["https://meet.google.com/*"]
+    },
+    {
+      "resources": ["src/app/index.html", "assets/*"],
+      "matches": ["<all_urls>"]
     }
-  ],
-  "icons": {
-    "16": "src/Assets/recapLogo.png",
-    "32": "src/Assets/recapLogo.png",
-    "48": "src/Assets/recapLogo.png",
-    "128": "src/Assets/recapLogo.png"
-  }
+  ]
 }
