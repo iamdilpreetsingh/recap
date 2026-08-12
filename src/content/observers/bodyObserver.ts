@@ -39,7 +39,7 @@ function onDomChange() {
 }
 
 export function bootstrapObserver() {
-  onDomChange(); // sync on boot
+  onDomChange();
 
   bodyObserver = new MutationObserver(onDomChange);
   bodyObserver.observe(document.body, { childList: true, subtree: true });

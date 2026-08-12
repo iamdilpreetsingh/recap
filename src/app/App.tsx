@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { Panel, Widget } from "./components";
+import { HashRouter } from "react-router-dom";
+import AppRouter from "./router";
+import { AppShell } from "./components";
 
 export default function App() {
-  const [isPanelOpen, setIsPanelOpen] = useState(false);
-
   return (
-    <>
-      <Widget hidden={isPanelOpen} onOpenPanel={() => setIsPanelOpen(true)} />
-      <Panel open={isPanelOpen} onClose={() => setIsPanelOpen(false)} />
-    </>
+    <HashRouter>
+      <AppShell>
+        <AppRouter />
+      </AppShell>
+    </HashRouter>
   );
 }

@@ -1,7 +1,16 @@
 export default function PlayIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
-      <polygon points="8,5 36,20 8,35" fill="#6C47FF" />
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polygon points="5 3 19 12 5 21 5 3" />
     </svg>
   );
 }

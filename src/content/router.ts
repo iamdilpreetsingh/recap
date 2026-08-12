@@ -6,6 +6,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
     if (btn) {
       btn.click();
+      
       sendResponse({ ok: true });
     } else {
       sendResponse({ ok: false, reason: "CC button not found" });

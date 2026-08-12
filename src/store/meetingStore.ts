@@ -10,6 +10,7 @@ export const useMeetingStore = create<MeetingState>((set) => ({
   activeMeetingId: null,
   isRecording: false,
   showResumePrompt: false,
+  showTranscription: false,
 
   // actions
   setMeetingActive: (active) => set({ meetingActive: active }),
@@ -21,5 +22,6 @@ export const useMeetingStore = create<MeetingState>((set) => ({
   setActiveMeetingId: (id) => set({ activeMeetingId: id }),
   setIsRecording: (recording) => set({ isRecording: recording }),
   setShowResumePrompt: (val) => set({ showResumePrompt: val }),
+  setShowTranscription: (val) => set({ showTranscription: val }),
   loadCaptions: (captions: Caption[]) => set({ captions }),
 }));

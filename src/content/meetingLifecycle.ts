@@ -1,7 +1,6 @@
 import { injectWidget, removeWidget } from "./widget/inject";
 import { getActiveMeetingIdFromUrl } from "./meeting/helpers";
 import { useMeetingStore } from "../store/meetingStore";
-import { closeMeeting, createMeeting, getMeeting } from "../db";
 
 let handledMeetingUrl: string | null = null;
 
@@ -20,7 +19,9 @@ export function onMeetingEnd() {
   const { activeMeetingId } = useMeetingStore.getState();
 
   if (activeMeetingId) {
-    closeMeeting(activeMeetingId);
+    chrome.runtime
+      .sendMessage({ type: "CLOSE_MEETING", meetingId: activeMeetingId })
+      .catch((err) => console.error("[Recap] CLOSE_MEETING failed:", err));
   }
 
   handledMeetingUrl = null;
@@ -32,14 +33,19 @@ export function onMeetingEnd() {
 }
 
 async function handleMeetingDetected(meetingId: string) {
-  const existing = await getMeeting(meetingId);
+  const res = await chrome.runtime.sendMessage({
+    type: "GET_MEETING",
+    meetingId,
+  });
+
+  const existing = res?.data ?? null;
 
   if (existing && existing.captions.length !== 0) {
     useMeetingStore.getState().loadCaptions(existing.captions);
     useMeetingStore.getState().setShowResumePrompt(true);
     useMeetingStore.getState().setIsRecording(false);
   } else if (!existing) {
-    await createMeeting(meetingId);
+    await chrome.runtime.sendMessage({ type: "CREATE_MEETING", meetingId });
   }
 
   useMeetingStore.getState().setActiveMeetingId(meetingId);

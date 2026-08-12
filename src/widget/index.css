@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/* Geist Font */
+@font-face {
+  font-family: "Geist";
+  src: url("../Assets/fonts/Geist-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("../Assets/fonts/Geist-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("../Assets/fonts/Geist-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("../Assets/fonts/Geist-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Extension / Shadow DOM */
+:host {
+  font-family: "Geist", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:host,
+:host * {
+  font-family: "Geist", sans-serif;
+}
+
+/* Reset */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Colors */
+.text-recap {
+  color: #6c47ff;
+}
+
+.bg-recap {
+  background-color: #6c47ff;
+}
+
+.border-recap {
+  border-color: #6c47ff;
+  border-style: solid;
+}
+
+.bg-recap-light {
+  background-color: #ebe5ff;
+}
+
+.bg-zinc {
+  background-color: #3f3f46;
+}

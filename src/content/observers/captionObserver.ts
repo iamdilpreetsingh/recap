@@ -1,8 +1,7 @@
 import type { Caption } from "../../types/global";
 import { useMeetingStore } from "../../store/meetingStore";
-import { appendCaption } from "../../db";
 
-const STABILITY_DELAY_MS = 1000;
+const STABILITY_DELAY_MS = 2000;
 const AVATAR_FINGERPRINT = 'img[src*="googleusercontent.com"]';
 
 let captionIdCounter = 0;
@@ -36,19 +35,21 @@ function commitDeltaToState(el: Element, state: CaptionState) {
     text: delta,
     timestamp: Date.now(),
   };
+
   const { activeMeetingId, isRecording } = useMeetingStore.getState();
 
   if (!isRecording) return;
+
   useMeetingStore.getState().addCaption(caption);
 
   if (activeMeetingId) {
-    appendCaption(activeMeetingId, caption);
-  }
-
-  if (typeof chrome !== "undefined" && chrome.runtime?.id) {
     chrome.runtime
-      .sendMessage({ type: "CAPTION", data: caption })
-      .catch((err) => console.error("sendMessage error:", err));
+      .sendMessage({
+        type: "APPEND_CAPTION",
+        meetingId: activeMeetingId,
+        caption,
+      })
+      .catch((err) => console.error("[Recap] APPEND_CAPTION failed:", err));
   }
 
   state.committedText = pending;
