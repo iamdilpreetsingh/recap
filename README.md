@@ -4,6 +4,8 @@ A lightweight meeting note-taker Chrome extension that captures live captions fr
 
 Built with **React**, **TypeScript**, and **Manifest V3**, Recap provides a simple way to capture and organise meeting conversations in real time.
 
+![Recap widget](./assets/recap-widget.webp)
+
 🎥 [Watch the demo](https://www.youtube.com/watch?v=Qwp7rCgvSPI)
 
 ## Features
