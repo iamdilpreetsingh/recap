@@ -1,7 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Recap: Transcribe Your Google Meet Calls",
-  "version": "0.0.2",
+  "description": "Transcribe and save your Google Meet conversations with Recap.",
+  "version": "1.0.1",
   "action": {
     "default_title": "Open Recap panel",
     "default_popup": "src/popup/index.html",
