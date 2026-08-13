@@ -19,7 +19,6 @@ Built with **React**, **TypeScript**, and **Manifest V3**, Recap provides a simp
 
 - React
 - TypeScript
-- Tailwind CSS
 - Chrome Extension Manifest V3
 
 ## Roadmap
