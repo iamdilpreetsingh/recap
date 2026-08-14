@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { MeetingSummary } from "../../../../lib/meeting.types";
 
-const FALLBACK_DELAY_MS = 15_000;
+const FALLBACK_DELAY_MS = 35_000;
 
 type AISummaryProps = {
   summary: MeetingSummary | null;
