@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type { MeetingRecord } from "../../../../lib/meeting.types";
 import { getMeeting, regenerateSummary } from "../../../../lib/meetings";
@@ -14,7 +14,6 @@ export default function MeetingDetail() {
   const { user } = useAuth();
   const [meeting, setMeeting] = useState<MeetingRecord | null>(null);
   const [loading, setLoading] = useState(true);
-  const autoTriggered = useRef(false);
 
   useEffect(() => {
     if (!id || !user) return;
@@ -28,14 +27,6 @@ export default function MeetingDetail() {
     const summary = await regenerateSummary(id);
     setMeeting((prev) => (prev ? { ...prev, summary } : prev));
   };
-
-  useEffect(() => {
-    if (!meeting || meeting.summary || autoTriggered.current) return;
-    autoTriggered.current = true;
-    handleRetrySummary().catch((err) =>
-      console.error("[Recap] Auto summary generation failed:", err),
-    );
-  }, [meeting]);
 
   if (loading) {
     return (
