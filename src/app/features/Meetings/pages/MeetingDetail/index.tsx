@@ -93,7 +93,7 @@ export default function MeetingDetail() {
             </span>
             <button
               onClick={() => downloadTranscript(meeting)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-neutral-100 text-neutral-600 text-xs font-medium rounded-lg hover:bg-neutral-200 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-2 bg-recap text-white text-xs font-medium rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
             >
               <i
                 className="ti ti-download"

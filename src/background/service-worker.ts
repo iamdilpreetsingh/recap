@@ -17,19 +17,19 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
   }
 });
 
-async function syncMeetingToBackend(meetingId: string) {
+async function syncMeetingToBackend(meetingId: string): Promise<boolean> {
   console.log("[Recap] Syncing meeting to backend:", meetingId);
 
   const meeting = await getMeeting(meetingId);
   if (!meeting) {
     console.warn("[Recap] Meeting not found in IndexedDB, aborting sync");
-    return;
+    return false;
   }
 
   const idToken = await getIdToken();
   if (!idToken) {
     console.warn("[Recap] Not signed in, skipping backend sync");
-    return;
+    return false;
   }
 
   const res = await fetch(`${BACKEND_URL}/api/meetings`, {
@@ -44,10 +44,11 @@ async function syncMeetingToBackend(meetingId: string) {
   if (!res.ok) {
     const body = await res.text().catch(() => "");
     console.error("[Recap] Backend responded with error:", res.status, body);
-    return;
+    return false;
   }
 
   console.log("[Recap] Meeting synced successfully:", meetingId);
+  return true;
 }
 
 chrome.runtime.onMessageExternal.addListener(
@@ -101,12 +102,15 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       .then(() => sendResponse({ ok: true }))
       .catch((err) => sendResponse({ ok: false, error: err.message }))
       .finally(() => {
-        chrome.tabs.create({
-          url: `${DASHBOARD_URL}/meetings/${message.meetingId}`,
-        });
-        syncMeetingToBackend(message.meetingId).catch((err) =>
-          console.error("[Recap] Backend sync failed:", err),
-        );
+        syncMeetingToBackend(message.meetingId)
+          .then((synced) => {
+            if (synced) {
+              chrome.tabs.create({
+                url: `${DASHBOARD_URL}/meetings/${message.meetingId}`,
+              });
+            }
+          })
+          .catch((err) => console.error("[Recap] Backend sync failed:", err));
       });
     return true;
   }
