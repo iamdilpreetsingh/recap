@@ -1,4 +1,4 @@
-import { HollowVideo } from "../../../../../Assets";
+import { HollowVideo } from "../../../../assets";
 import { formatMeetingDate, getMeetingMeta } from "./MeetingCard.helpers";
 import type { MeetingCardProps } from "./MeetingCard.types";
 

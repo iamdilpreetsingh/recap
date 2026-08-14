@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { sections } from "./Sidebar.constants";
-import { SidebarCollapse } from "../../../Assets";
+import { SidebarCollapse } from "../../assets";
 import { useAuth } from "../../context/AuthContext";
 
 export default function Sidebar() {
