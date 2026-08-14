@@ -3,6 +3,7 @@ import { useMeetingStore } from "../../../store/meetingStore";
 import { getSpeakerColor } from "./TranscriptFeed.helpers";
 import type { TranscriptFeedProps } from "./TranscriptFeed.types";
 import { useCaptionStream } from "../../hooks";
+import EnableCaptionPrompt from "../EnableCaptionPrompt";
 
 export default function TranscriptFeed({
   captions: externalCaptions,
@@ -13,6 +14,7 @@ export default function TranscriptFeed({
   const { captions: liveCaptions, bottomRef } = useCaptionStream();
   const liveShowResumePrompt = useMeetingStore((s) => s.showResumePrompt);
   const isRecording = useMeetingStore((s) => s.isRecording);
+  const captionsEnabled = useMeetingStore((s) => s.captionsEnabled);
 
   const captions = externalCaptions ?? liveCaptions;
   const showResumePrompt = externalShowResumePrompt ?? liveShowResumePrompt;
@@ -35,6 +37,8 @@ export default function TranscriptFeed({
     <div
       className={`flex-1 overflow-y-auto min-h-0 space-y-2 ${!isDark ? "bg-[#f7f7f8] p-4" : ""}`}
     >
+      {!readOnly && !captionsEnabled && <EnableCaptionPrompt />}
+
       {captions.length === 0 && !showResumePrompt && isRecording ? (
         <div className={bubbleClass}>
           <p className={`text-sm leading-relaxed text-center ${textClass}`}>

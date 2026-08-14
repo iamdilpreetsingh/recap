@@ -5,7 +5,7 @@ import MeetingCard from "../../components/MeetingCard";
 import { groupByDate } from "./MeetingList.helpers";
 
 export default function MeetingList() {
-  const meetings = useMeetingsList();
+  const { meetings, loading } = useMeetingsList();
   const navigate = useNavigate();
   const { today, yesterday, earlier } = groupByDate(meetings);
   const isEmpty = meetings.length === 0;
@@ -16,7 +16,9 @@ export default function MeetingList() {
         My Meetings
       </h1>
 
-      {isEmpty ? (
+      {loading ? (
+        <p className="text-sm text-neutral-400">Loading...</p>
+      ) : isEmpty ? (
         <p className="text-sm text-neutral-400">
           No meetings yet. Join a Google Meet call with Recap active to start
           transcribing.

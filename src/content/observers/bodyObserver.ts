@@ -1,6 +1,7 @@
 import { startObserving, stopObserving, observer } from "./captionObserver";
 import { useMeetingStore } from "../../store/meetingStore";
 import { onMeetingEnd, onMeetingStart } from "../meetingLifecycle";
+import { hideCaptionsContainer } from "../captions";
 
 export const CAPTIONS_CONTAINER_SELECTOR =
   '[role="region"][aria-label="Captions"]';
@@ -14,6 +15,7 @@ function syncCaptionsEnabled() {
   useMeetingStore.getState().setCaptionsEnabled(!!container);
 
   if (container && !observer) {
+    hideCaptionsContainer(container);
     startObserving(container);
   } else if (!container && observer) {
     stopObserving();

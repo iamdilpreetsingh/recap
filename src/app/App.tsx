@@ -1,13 +1,13 @@
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./router";
-import { AppShell } from "./components";
+import { AuthProvider } from "./context/AuthContext";
 
 export default function App() {
   return (
-    <HashRouter>
-      <AppShell>
+    <BrowserRouter>
+      <AuthProvider>
         <AppRouter />
-      </AppShell>
-    </HashRouter>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }

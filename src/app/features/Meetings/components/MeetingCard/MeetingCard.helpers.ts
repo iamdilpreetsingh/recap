@@ -1,4 +1,4 @@
-import type { MeetingRecord } from "../../../../../db/meetings/meeting.types";
+import type { MeetingRecord } from "../../../../lib/meeting.types";
 
 export function getMeetingMeta(meeting: MeetingRecord) {
   const speakers = new Set(meeting.captions.map((c) => c.speaker)).size;

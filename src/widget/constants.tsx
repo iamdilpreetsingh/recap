@@ -33,8 +33,8 @@ export const getButtonConfig = (
       if (!isRecording) resumeObserving();
       useMeetingStore.getState().setIsRecording(!isRecording);
     },
-    disabled: () => showResumePrompt,
-    show: () => useMeetingStore.getState().captionsEnabled,
+    disabled: () =>
+      showResumePrompt || !useMeetingStore.getState().captionsEnabled,
   },
   {
     key: "openRecap",
@@ -51,6 +51,5 @@ export const getButtonConfig = (
     icon: () => (showTranscription ? <Collapse /> : <Expand />),
     onClick: () =>
       useMeetingStore.getState().setShowTranscription(!showTranscription),
-    show: () => useMeetingStore.getState().captionsEnabled,
   },
 ];

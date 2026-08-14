@@ -1,12 +1,11 @@
 import { useMeetingStore } from "../store/meetingStore";
-import { EnableCaptionPrompt, LiveTranscript } from "./components";
+import { LiveTranscript } from "./components";
 import { getButtonConfig, WIDGET_WIDTH } from "./constants";
 import { useDrag } from "./hooks";
 
 export default function App() {
   const { position, onMousedown } = useDrag();
   const isRecording = useMeetingStore((s) => s.isRecording);
-  const captionsEnabled = useMeetingStore((s) => s.captionsEnabled);
   const showResumePrompt = useMeetingStore((s) => s.showResumePrompt);
   const showTranscription = useMeetingStore((s) => s.showTranscription);
 
@@ -52,8 +51,6 @@ export default function App() {
 
       {/* Scrollable Content */}
       <div className="min-h-0 overflow-y-auto flex-1 [overscroll-behavior:contain]">
-        {!captionsEnabled && <EnableCaptionPrompt />}
-
         {showTranscription && <LiveTranscript />}
       </div>
     </div>

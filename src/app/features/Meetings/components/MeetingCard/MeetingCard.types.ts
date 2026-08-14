@@ -1,4 +1,4 @@
-import type { MeetingRecord } from "../../../../../db/meetings/meeting.types";
+import type { MeetingRecord } from "../../../../lib/meeting.types";
 
 export type MeetingCardProps = {
   meeting: MeetingRecord;

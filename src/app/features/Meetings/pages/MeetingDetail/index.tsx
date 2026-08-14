@@ -1,25 +1,32 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import type { MeetingRecord } from "../../../../../db/meetings/meeting.types";
-import { getMeeting } from "../../../../../db";
-import { formatMeetingDate } from "../../components/MeetingCard/MeetingCard.helpers";
-import { TranscriptFeed } from "../../../../../widget/components";
-import { MeetingAttributes } from "../../components";
-import { ChevronLeft } from "../../../../../Assets";
+import { useParams } from "react-router-dom";
+import type { MeetingRecord } from "../../../../lib/meeting.types";
+import { getMeeting, regenerateSummary } from "../../../../lib/meetings";
+import { useAuth } from "../../../../context/AuthContext";
+import { getMeetingMeta } from "../../components/MeetingCard/MeetingCard.helpers";
+import TranscriptList from "../../components/TranscriptList";
+import AISummary from "../../components/AISummary";
+import AIAssistant from "../../components/AIAssistant";
 import { downloadTranscript } from "./MeetingDetail.helpers";
 
 export default function MeetingDetail() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+  const { user } = useAuth();
   const [meeting, setMeeting] = useState<MeetingRecord | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
-    getMeeting(id)
+    if (!id || !user) return;
+    getMeeting(user.uid, id)
       .then(setMeeting)
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, user]);
+
+  const handleRetrySummary = async () => {
+    if (!id) return;
+    const summary = await regenerateSummary(id);
+    setMeeting((prev) => (prev ? { ...prev, summary } : prev));
+  };
 
   if (loading) {
     return (
@@ -37,39 +44,69 @@ export default function MeetingDetail() {
     );
   }
 
-  return (
-    <div className="flex h-full">
-      {/* Transcript area */}
-      <div className="flex-1 flex flex-col min-h-0 border-r border-neutral-200">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200 shrink-0">
-          <div className="flex gap-2">
-            <button
-              onClick={() => navigate("/meetings")}
-              className="flex items-center gap-1 text-xs text-recap w-fit cursor-pointer"
-            >
-              <ChevronLeft />
-            </button>
-            <h1 className="text-sm font-semibold text-neutral-800">
-              Meeting · {formatMeetingDate(meeting.startedAt)}
-            </h1>
-          </div>
-          <button
-            onClick={() => downloadTranscript(meeting)}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#f0ecff] text-recap text-xs font-medium rounded-lg hover:bg-[#e4dcff] transition-colors cursor-pointer"
-          >
-            <i
-              className="ti ti-download"
-              style={{ fontSize: 13 }}
-              aria-hidden="true"
-            />
-            Download
-          </button>
-        </div>
+  const { speakers, mins } = getMeetingMeta(meeting);
+  const startedAt = new Date(meeting.startedAt);
+  const dateLabel = startedAt.toLocaleDateString([], {
+    day: "numeric",
+    month: "short",
+  });
+  const timeLabel = startedAt.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
-        <TranscriptFeed captions={meeting.captions} readOnly variant="light" />
+  return (
+    <div className="flex flex-col h-full overflow-hidden">
+      <div className="px-8 pt-6 pb-4 shrink-0">
+        <h1 className="text-lg font-semibold text-neutral-800">
+          {meeting.title}
+        </h1>
+        <div className="flex items-center gap-2 mt-2 text-xs text-neutral-400">
+          <span>
+            {dateLabel}, {timeLabel}
+          </span>
+          <span>·</span>
+          <span>{mins !== null ? `${mins}m` : "In progress"}</span>
+          <span>·</span>
+          <span>
+            {speakers} speaker{speakers !== 1 ? "s" : ""}
+          </span>
+        </div>
       </div>
 
-      <MeetingAttributes meeting={meeting} />
+      <div className="border-t border-neutral-100" />
+
+      <div className="flex flex-1 min-h-0">
+        <div className="flex-1 flex flex-col min-h-0">
+          <div className="flex-1 min-h-0 overflow-y-auto px-8 py-6">
+            <AISummary summary={meeting.summary} onRetry={handleRetrySummary} />
+          </div>
+          <div className="flex-1 min-h-0 flex flex-col px-8 pb-6">
+            <AIAssistant />
+          </div>
+        </div>
+
+        <div className="w-[440px] shrink-0 border-l border-neutral-100 flex flex-col min-h-0">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-100 shrink-0">
+            <span className="text-xs font-semibold text-recap pb-3 -mb-4">
+              Transcription
+            </span>
+            <button
+              onClick={() => downloadTranscript(meeting)}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-neutral-100 text-neutral-600 text-xs font-medium rounded-lg hover:bg-neutral-200 transition-colors cursor-pointer"
+            >
+              <i
+                className="ti ti-download"
+                style={{ fontSize: 13 }}
+                aria-hidden="true"
+              />
+              Download
+            </button>
+          </div>
+
+          <TranscriptList captions={meeting.captions} />
+        </div>
+      </div>
     </div>
   );
 }

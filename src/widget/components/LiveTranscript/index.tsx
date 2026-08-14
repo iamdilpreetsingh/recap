@@ -9,7 +9,7 @@ export default function LiveTranscript() {
   const showResumePrompt = useMeetingStore((s) => s.showResumePrompt);
   const captionsEnabled = useMeetingStore((s) => s.captionsEnabled);
   const pausedBannerRef = useRef<HTMLDivElement>(null);
-  const showPausedBanner = !isRecording && !showResumePrompt;
+  const showPausedBanner = captionsEnabled && !isRecording && !showResumePrompt;
 
   useEffect(() => {
     if (!showPausedBanner) return;
@@ -23,19 +23,15 @@ export default function LiveTranscript() {
 
   return (
     <div className="flex m-2.5 flex-col flex-1 min-h-0">
-      {captionsEnabled && (
-        <>
-          {showPausedBanner && (
-            <div ref={pausedBannerRef}>
-              <TranscriptionPausedBanner />
-            </div>
-          )}
-
-          {showResumePrompt && <RejoinMeetingBanner />}
-
-          <TranscriptFeed />
-        </>
+      {showPausedBanner && (
+        <div ref={pausedBannerRef}>
+          <TranscriptionPausedBanner />
+        </div>
       )}
+
+      {captionsEnabled && showResumePrompt && <RejoinMeetingBanner />}
+
+      <TranscriptFeed />
     </div>
   );
 }
