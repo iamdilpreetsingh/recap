@@ -41,13 +41,14 @@ async function syncMeetingToBackend(meetingId: string): Promise<boolean> {
     body: JSON.stringify(meeting),
   });
 
+  const body = await res.text().catch(() => "");
+
   if (!res.ok) {
-    const body = await res.text().catch(() => "");
     console.error("[Recap] Backend responded with error:", res.status, body);
     return false;
   }
 
-  console.log("[Recap] Meeting synced successfully:", meetingId);
+  console.log("[Recap] Meeting synced successfully:", meetingId, body);
   return true;
 }
 
