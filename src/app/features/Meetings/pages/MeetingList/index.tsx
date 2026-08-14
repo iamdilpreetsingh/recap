@@ -20,7 +20,7 @@ export default function MeetingList() {
         <p className="text-sm text-neutral-400">Loading...</p>
       ) : isEmpty ? (
         <p className="text-sm text-neutral-400">
-          No meetings yet. Join a Google Meet call with Recap active to start
+          No meetings yet. Join a Google Meet call with Recap to start
           transcribing.
         </p>
       ) : (

@@ -15,13 +15,23 @@ import { auth, googleProvider } from "../lib/firebase";
 import { EXTENSION_ID } from "../lib/config";
 
 function notifyExtension(message: Record<string, unknown>) {
-  if (typeof chrome === "undefined" || !chrome.runtime?.sendMessage) return;
+  if (typeof chrome === "undefined" || !chrome.runtime?.sendMessage) {
+    console.warn("[Recap] chrome.runtime not available in this page");
+    return;
+  }
   try {
-    chrome.runtime.sendMessage(EXTENSION_ID, message, () => {
-      void chrome.runtime.lastError;
+    chrome.runtime.sendMessage(EXTENSION_ID, message, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error(
+          "[Recap] Failed to message extension:",
+          chrome.runtime.lastError.message,
+        );
+        return;
+      }
+      console.log("[Recap] Extension responded:", response);
     });
-  } catch {
-    // extension not installed or not reachable
+  } catch (err) {
+    console.error("[Recap] sendMessage threw:", err);
   }
 }
 

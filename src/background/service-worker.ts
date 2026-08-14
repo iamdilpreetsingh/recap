@@ -18,8 +18,13 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
 });
 
 async function syncMeetingToBackend(meetingId: string) {
+  console.log("[Recap] Syncing meeting to backend:", meetingId);
+
   const meeting = await getMeeting(meetingId);
-  if (!meeting) return;
+  if (!meeting) {
+    console.warn("[Recap] Meeting not found in IndexedDB, aborting sync");
+    return;
+  }
 
   const idToken = await getIdToken();
   if (!idToken) {
@@ -27,7 +32,7 @@ async function syncMeetingToBackend(meetingId: string) {
     return;
   }
 
-  await fetch(`${BACKEND_URL}/api/meetings`, {
+  const res = await fetch(`${BACKEND_URL}/api/meetings`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -35,6 +40,14 @@ async function syncMeetingToBackend(meetingId: string) {
     },
     body: JSON.stringify(meeting),
   });
+
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    console.error("[Recap] Backend responded with error:", res.status, body);
+    return;
+  }
+
+  console.log("[Recap] Meeting synced successfully:", meetingId);
 }
 
 chrome.runtime.onMessageExternal.addListener(
@@ -45,6 +58,7 @@ chrome.runtime.onMessageExternal.addListener(
     }
 
     if (message.type === "RECAP_AUTH") {
+      console.log("[Recap] Received auth from dashboard:", message.email);
       storeAuth({
         refreshToken: message.refreshToken,
         uid: message.uid,

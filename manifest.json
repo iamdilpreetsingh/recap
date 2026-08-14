@@ -32,10 +32,10 @@
   "host_permissions": [
     "https://meet.google.com/*",
     "https://securetoken.googleapis.com/*",
-    "http://localhost:3000/*"
+    "https://recap-backend-five.vercel.app/*"
   ],
   "externally_connectable": {
-    "matches": ["http://localhost:5174/*"]
+    "matches": ["https://recap-two-sable.vercel.app/*"]
   },
   "web_accessible_resources": [
     {
