@@ -48,7 +48,7 @@ export default function AISummary({ summary, onRetry }: AISummaryProps) {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-neutral-800">Summary</h2>
+        <h2 className="text-sm font-semibold text-neutral-800">AI Summary</h2>
         {summary && (
           <button
             onClick={handleCopy}
