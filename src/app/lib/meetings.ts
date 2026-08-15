@@ -56,3 +56,28 @@ export async function regenerateSummary(
   const data = await res.json();
   return data.summary;
 }
+
+export async function askQuestion(
+  meetingId: string,
+  question: string,
+): Promise<string> {
+  const idToken = await auth.currentUser?.getIdToken();
+  if (!idToken) throw new Error("Not signed in");
+
+  const res = await fetch(`${BACKEND_URL}/api/ask`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${idToken}`,
+    },
+    body: JSON.stringify({ meetingId, question }),
+  });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || "Failed to get an answer");
+  }
+
+  const data = await res.json();
+  return data.answer;
+}

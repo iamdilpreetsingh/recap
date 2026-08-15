@@ -11,6 +11,11 @@ export type MeetingSummary = {
   nextSteps: string;
 };
 
+export type TranscriptChunk = {
+  text: string;
+  vector: number[];
+};
+
 export interface MeetingRecord {
   id: string;
   userId: string;
@@ -19,4 +24,5 @@ export interface MeetingRecord {
   endedAt: number | null;
   captions: Caption[];
   summary: MeetingSummary | null;
+  chunks?: TranscriptChunk[];
 }
