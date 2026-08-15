@@ -61,7 +61,7 @@ export default function AIAssistant({ meetingId }: AIAssistantProps) {
         {messages.map((m, i) => (
           <div
             key={i}
-            className={`rounded-xl px-3.5 py-2.5 max-w-[85%] ${
+            className={`rounded-xl px-3.5 py-2.5 w-fit max-w-[85%] ${
               m.role === "user"
                 ? "bg-recap text-white ml-auto"
                 : "bg-[#f7f5ff] text-neutral-700"
@@ -89,7 +89,7 @@ export default function AIAssistant({ meetingId }: AIAssistantProps) {
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleAsk()}
           placeholder="Enter your question"
-          className="flex-1 border border-neutral-200 rounded-lg px-3 py-2 text-xs text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-recap"
+          className="flex-1 border border-neutral-200 rounded-lg px-3 py-2 text-xs text-neutral-500 placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-recap"
         />
         <button
           onClick={handleAsk}

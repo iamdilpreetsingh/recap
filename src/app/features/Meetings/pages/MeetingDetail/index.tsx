@@ -86,7 +86,7 @@ export default function MeetingDetail() {
           </div>
         </div>
 
-        <div className="w-[440px] shrink-0 border-l border-neutral-100 flex flex-col min-h-0">
+        <div className="flex-1 min-w-0 border-l border-neutral-100 flex flex-col min-h-0">
           <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-100 shrink-0">
             <span className="text-xs font-semibold text-recap pb-3 -mb-4">
               Transcription
