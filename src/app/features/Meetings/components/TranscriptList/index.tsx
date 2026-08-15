@@ -1,5 +1,5 @@
 import type { Caption } from "../../../../../types/global";
-import { getSpeakerColor, formatClockTime } from "./TranscriptList.helpers";
+import { formatClockTime } from "./TranscriptList.helpers";
 
 type TranscriptListProps = {
   captions: Caption[];
@@ -25,9 +25,7 @@ export default function TranscriptList({ captions }: TranscriptListProps) {
               <p className="text-sm text-neutral-800 leading-relaxed">
                 {t.text}
               </p>
-              <span
-                className={`text-xs font-medium mt-1.5 block ${getSpeakerColor(t.speaker)}`}
-              >
+              <span className="text-xs font-medium mt-1.5 block text-neutral-400">
                 {t.speaker}
               </span>
             </div>

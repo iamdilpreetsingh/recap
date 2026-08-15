@@ -82,7 +82,10 @@ export default function MeetingDetail() {
             <AISummary summary={meeting.summary} onRetry={handleRetrySummary} />
           </div>
           <div className="flex-1 min-h-0 flex flex-col px-8 pb-6">
-            <AIAssistant meetingId={meeting.id} />
+            <AIAssistant
+              meetingId={meeting.id}
+              initialMessages={meeting.chatHistory}
+            />
           </div>
         </div>
 

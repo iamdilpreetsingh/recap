@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { askQuestion } from "../../../../lib/meetings";
-
-type ChatMessage = {
-  role: "user" | "assistant";
-  text: string;
-};
+import type { ChatMessage } from "../../../../lib/meeting.types";
 
 type AIAssistantProps = {
   meetingId: string;
+  initialMessages?: ChatMessage[];
 };
 
-export default function AIAssistant({ meetingId }: AIAssistantProps) {
+export default function AIAssistant({
+  meetingId,
+  initialMessages = [],
+}: AIAssistantProps) {
   const [question, setQuestion] = useState("");
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [asking, setAsking] = useState(false);
 
   const handleAsk = async () => {
@@ -46,9 +46,6 @@ export default function AIAssistant({ meetingId }: AIAssistantProps) {
         <h2 className="text-sm font-semibold text-neutral-800">
           Recap AI Assistant
         </h2>
-        <span className="text-[10px] font-medium bg-recap-light text-recap px-2 py-0.5 rounded-full">
-          Beta
-        </span>
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto space-y-2.5">

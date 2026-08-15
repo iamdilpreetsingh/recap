@@ -16,6 +16,11 @@ export type TranscriptChunk = {
   vector: number[];
 };
 
+export type ChatMessage = {
+  role: "user" | "assistant";
+  text: string;
+};
+
 export interface MeetingRecord {
   id: string;
   userId: string;
@@ -25,4 +30,5 @@ export interface MeetingRecord {
   captions: Caption[];
   summary: MeetingSummary | null;
   chunks?: TranscriptChunk[];
+  chatHistory?: ChatMessage[];
 }
