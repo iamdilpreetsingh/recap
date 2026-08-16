@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useMeetingsList } from "../../hooks";
 import Section from "../../../../components/Section";
 import MeetingCard from "../../components/MeetingCard";
+import Skeleton from "../../../../components/Skeleton";
 import { groupByDate } from "./MeetingList.helpers";
 
 export default function MeetingList() {
@@ -17,7 +18,20 @@ export default function MeetingList() {
       </h1>
 
       {loading ? (
-        <p className="text-sm text-neutral-400">Loading...</p>
+        <div className="space-y-3">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div
+              key={i}
+              className="bg-white rounded-xl px-4 py-3 border border-neutral-200 flex items-center gap-3"
+            >
+              <Skeleton className="w-9 h-9 rounded-lg shrink-0" />
+              <div className="flex-1 space-y-2">
+                <Skeleton className="h-3.5 w-40" />
+                <Skeleton className="h-3 w-56" />
+              </div>
+            </div>
+          ))}
+        </div>
       ) : isEmpty ? (
         <p className="text-sm text-neutral-400">
           No meetings yet. Join a Google Meet call with Recap to start

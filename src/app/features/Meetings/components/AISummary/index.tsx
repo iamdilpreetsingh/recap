@@ -84,11 +84,6 @@ export default function AISummary({ summary, onRetry }: AISummaryProps) {
               disabled={retrying}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-[#f0ecff] text-recap text-xs font-medium rounded-lg hover:bg-[#e4dcff] transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-default"
             >
-              <i
-                className={`ti ${retrying ? "ti-loader-2 animate-spin" : "ti-refresh"}`}
-                style={{ fontSize: 13 }}
-                aria-hidden="true"
-              />
               {retrying ? "Retrying..." : "Retry"}
             </button>
           )}

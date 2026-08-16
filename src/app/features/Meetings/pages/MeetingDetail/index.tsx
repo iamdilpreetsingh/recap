@@ -7,6 +7,7 @@ import { getMeetingMeta } from "../../components/MeetingCard/MeetingCard.helpers
 import TranscriptList from "../../components/TranscriptList";
 import AISummary from "../../components/AISummary";
 import AIAssistant from "../../components/AIAssistant";
+import Skeleton from "../../../../components/Skeleton";
 import { downloadTranscript } from "./MeetingDetail.helpers";
 
 const SUMMARY_POLL_INTERVAL_MS = 3_000;
@@ -54,8 +55,29 @@ export default function MeetingDetail() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <p className="text-sm text-neutral-400">Loading...</p>
+      <div className="flex flex-col h-full overflow-hidden">
+        <div className="px-8 pt-6 pb-4 shrink-0">
+          <Skeleton className="h-5 w-64 mb-3" />
+          <Skeleton className="h-3 w-40" />
+        </div>
+
+        <div className="border-t border-neutral-100" />
+
+        <div className="flex flex-1 min-h-0">
+          <div className="flex-1 flex flex-col min-h-0 px-8 py-6 space-y-3">
+            <Skeleton className="h-3.5 w-28 mb-1" />
+            <Skeleton className="h-3 w-full" />
+            <Skeleton className="h-3 w-full" />
+            <Skeleton className="h-3 w-2/3" />
+          </div>
+
+          <div className="flex-1 min-w-0 border-l border-neutral-100 px-6 py-4 space-y-3">
+            <Skeleton className="h-3.5 w-28 mb-1" />
+            <Skeleton className="h-16 w-full rounded-lg" />
+            <Skeleton className="h-16 w-full rounded-lg" />
+            <Skeleton className="h-16 w-full rounded-lg" />
+          </div>
+        </div>
       </div>
     );
   }
@@ -122,11 +144,6 @@ export default function MeetingDetail() {
               onClick={() => downloadTranscript(meeting)}
               className="flex items-center gap-1.5 px-4 py-2 bg-recap text-white text-xs font-medium rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
             >
-              <i
-                className="ti ti-download"
-                style={{ fontSize: 13 }}
-                aria-hidden="true"
-              />
               Download
             </button>
           </div>

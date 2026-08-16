@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
 
   return (
     <div
@@ -59,19 +59,8 @@ export default function Sidebar() {
 
       <div className="mt-auto pt-4 border-t border-neutral-100">
         {!collapsed && user && (
-          <p className="text-[11px] text-neutral-400 truncate mb-2 px-2">
-            {user.email}
-          </p>
+          <p className="text-[11px] text-recap truncate px-2">{user.email}</p>
         )}
-        <button
-          onClick={signOut}
-          title="Sign out"
-          className={`flex items-center gap-2.5 rounded-lg text-[13px] font-medium text-neutral-400 hover:text-neutral-700 hover:bg-neutral-50 transition-colors cursor-pointer w-full ${
-            collapsed ? "justify-center p-2" : "px-2 py-1.5"
-          }`}
-        >
-          {!collapsed && <span>Sign out</span>}
-        </button>
       </div>
     </div>
   );
