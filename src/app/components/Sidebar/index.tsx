@@ -41,8 +41,8 @@ export default function Sidebar() {
                   collapsed ? "justify-center p-2" : "px-2 py-1.5"
                 } ${
                   isActive
-                    ? "text-neutral-800"
-                    : "text-neutral-400 hover:text-neutral-700 hover:bg-neutral-50"
+                    ? "text-neutral-800 bg-recap-light"
+                    : "text-neutral-400 hover:text-neutral-700 hover:bg-recap-light"
                 }`
               }
             >

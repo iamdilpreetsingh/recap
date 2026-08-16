@@ -11,7 +11,7 @@ export default function MeetingCard({ meeting, onClick }: MeetingCardProps) {
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-xl px-4 py-3 border border-neutral-200 flex items-center justify-between gap-3 cursor-pointer hover:border-recap transition-colors"
+      className="bg-white rounded-xl px-4 py-3 border border-neutral-200 flex items-center justify-between gap-3 cursor-pointer hover:border-recap hover:bg-recap-light transition-colors"
     >
       <p className="text-sm font-semibold text-neutral-800 truncate">
         {meeting.title}
