@@ -32,7 +32,7 @@ async function syncMeetingToBackend(meetingId: string): Promise<boolean> {
     return false;
   }
 
-  const res = await fetch(`${BACKEND_URL}/api/meetings`, {
+  const res = await fetch(`${BACKEND_URL}/api/v1/meetings`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

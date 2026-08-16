@@ -17,7 +17,7 @@ export default function MeetingDetail() {
 
   useEffect(() => {
     if (!id || !user) return;
-    getMeeting(user.uid, id)
+    getMeeting(id)
       .then(setMeeting)
       .finally(() => setLoading(false));
   }, [id, user]);

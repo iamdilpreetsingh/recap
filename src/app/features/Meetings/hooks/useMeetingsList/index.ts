@@ -11,7 +11,7 @@ export default function useMeetingsList() {
   useEffect(() => {
     if (!user) return;
     setLoading(true);
-    getMeetings(user.uid)
+    getMeetings()
       .then(setMeetings)
       .finally(() => setLoading(false));
   }, [user]);
