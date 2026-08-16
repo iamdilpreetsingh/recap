@@ -9,6 +9,9 @@ import AISummary from "../../components/AISummary";
 import AIAssistant from "../../components/AIAssistant";
 import { downloadTranscript } from "./MeetingDetail.helpers";
 
+const SUMMARY_POLL_INTERVAL_MS = 3_000;
+const SUMMARY_POLL_MAX_ATTEMPTS = 20; // ~60s, matching AISummary's fallback window
+
 export default function MeetingDetail() {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuth();
@@ -21,6 +24,27 @@ export default function MeetingDetail() {
       .then(setMeeting)
       .finally(() => setLoading(false));
   }, [id, user]);
+
+  // The dashboard tab opens right after the meeting is created, before the
+  // backend's fire-and-forget summary generation has finished — poll until
+  // it lands instead of requiring a manual page refresh.
+  useEffect(() => {
+    if (!id || !meeting || meeting.summary) return;
+
+    let attempts = 0;
+    const interval = setInterval(async () => {
+      attempts += 1;
+      const updated = await getMeeting(id);
+      if (updated?.summary) {
+        setMeeting(updated);
+      }
+      if (attempts >= SUMMARY_POLL_MAX_ATTEMPTS) {
+        clearInterval(interval);
+      }
+    }, SUMMARY_POLL_INTERVAL_MS);
+
+    return () => clearInterval(interval);
+  }, [id, meeting?.summary]);
 
   const handleRetrySummary = async () => {
     if (!id) return;
