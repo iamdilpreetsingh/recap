@@ -13,7 +13,7 @@ export default function MeetingList() {
 
   return (
     <div className="px-10 py-8">
-      <h1 className="text-xl font-semibold text-neutral-800 mb-6">
+      <h1 className="text-2xl font-bold text-neutral-800 mb-6">
         My Meetings
       </h1>
 

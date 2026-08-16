@@ -37,7 +37,7 @@ export default function Sidebar() {
               to={to}
               title={label}
               className={({ isActive }) =>
-                `flex items-center gap-2.5 rounded-lg text-[13px] font-medium transition-colors ${
+                `flex items-center gap-2.5 rounded-lg text-[13px] font-semibold transition-colors ${
                   collapsed ? "justify-center p-2" : "px-2 py-1.5"
                 } ${
                   isActive

@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --color-recap: #6c47ff;
+  --color-recap-light: #ebe5ff;
+}
+
 /* Geist Font */
 @font-face {
   font-family: "Geist";
@@ -55,23 +60,6 @@ body,
 }
 
 /* Colors */
-.text-recap {
-  color: #6c47ff;
-}
-
-.bg-recap {
-  background-color: #6c47ff;
-}
-
-.border-recap {
-  border-color: #6c47ff;
-  border-style: solid;
-}
-
-.bg-recap-light {
-  background-color: #ebe5ff;
-}
-
 .bg-zinc {
   background-color: #3f3f46;
 }
