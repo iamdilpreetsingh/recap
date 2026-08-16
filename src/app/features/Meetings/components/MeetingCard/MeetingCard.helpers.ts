@@ -15,3 +15,16 @@ export function formatMeetingDate(ts: number) {
     day: "numeric",
   });
 }
+
+export function formatMeetingDateTime(ts: number) {
+  const date = new Date(ts).toLocaleDateString([], {
+    day: "numeric",
+    month: "short",
+  });
+  const time = new Date(ts).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  return `${date}, ${time}`;
+}

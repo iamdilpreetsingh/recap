@@ -1,5 +1,8 @@
 import { injectWidget, removeWidget } from "./widget/inject";
-import { getActiveMeetingIdFromUrl } from "./meeting/helpers";
+import {
+  getActiveMeetingIdFromUrl,
+  getMeetingTitleFromDocument,
+} from "./meeting/helpers";
 import { useMeetingStore } from "../store/meetingStore";
 import { autoEnableCaptions } from "./captions";
 
@@ -47,7 +50,11 @@ async function handleMeetingDetected(meetingId: string) {
     useMeetingStore.getState().setShowResumePrompt(true);
     useMeetingStore.getState().setIsRecording(false);
   } else if (!existing) {
-    await chrome.runtime.sendMessage({ type: "CREATE_MEETING", meetingId });
+    await chrome.runtime.sendMessage({
+      type: "CREATE_MEETING",
+      meetingId,
+      title: getMeetingTitleFromDocument(),
+    });
   }
 
   useMeetingStore.getState().setActiveMeetingId(meetingId);

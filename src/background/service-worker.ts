@@ -84,7 +84,7 @@ chrome.runtime.onMessageExternal.addListener(
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "CREATE_MEETING") {
-    createMeeting(message.meetingId)
+    createMeeting(message.meetingId, message.title)
       .then(() => sendResponse({ ok: true }))
       .catch((err) => sendResponse({ ok: false, error: err.message }));
     return true;

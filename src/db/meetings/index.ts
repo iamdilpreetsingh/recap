@@ -14,11 +14,11 @@ export async function getMeeting(id: string) {
   return meeting ?? null;
 }
 
-export async function createMeeting(id: string) {
+export async function createMeeting(id: string, title?: string) {
   const db = await dbPromise;
   await db.add("meeting", {
     id,
-    title: `Meeting · ${new Date().toLocaleDateString()}`,
+    title: title?.trim() || "Untitled Google Meet call",
     startedAt: Date.now(),
     endedAt: null,
     captions: [],

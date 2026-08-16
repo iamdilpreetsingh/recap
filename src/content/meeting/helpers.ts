@@ -18,3 +18,15 @@ export function getActiveMeetingIdFromUrl(): string | undefined {
 
   return path.split("/")[1]?.toLowerCase();
 }
+
+// Google Meet sets the tab title to "<event name> - Google Meet" for
+// calendar-scheduled calls, or just "Meet" for anonymous/ad-hoc ones.
+export function getMeetingTitleFromDocument(): string | undefined {
+  const raw = document.title.trim();
+  if (!raw) return undefined;
+
+  const cleaned = raw.replace(/\s*[-–]\s*Google Meet\s*$/i, "").trim();
+  if (!cleaned || cleaned.toLowerCase() === "meet") return undefined;
+
+  return cleaned;
+}
