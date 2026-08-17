@@ -1,6 +1,6 @@
 # Recap
 
-AI-powered Chrome extension that captures live captions from Google Meet, then automatically generates summaries and lets you ask questions about any past meeting.
+An AI meeting assistant for Google Meet — packaged as a lightweight Chrome extension that captures live captions, automatically generates summaries, and lets you ask questions about any past meeting.
 
 Built with **React**, **TypeScript**, and **Manifest V3** on the extension/dashboard side, with a **Node/Express + PostgreSQL (pgvector) + Gemini** backend powering summaries and retrieval-augmented Q&A.
 

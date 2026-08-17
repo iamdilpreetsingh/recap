@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Recap: Transcribe Your Google Meet Calls",
-  "description": "AI-powered Google Meet transcription with auto-generated summaries and built-in Q&A on past meetings.",
+  "description": "An AI meeting assistant for Google Meet — live transcription, auto-generated summaries, and built-in Q&A.",
   "version": "1.0.2",
   "action": {
     "default_title": "Open Recap panel",
