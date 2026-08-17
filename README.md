@@ -1,8 +1,8 @@
 # Recap
 
-A lightweight meeting note-taker Chrome extension that captures live captions from Google Meet.
+A lightweight Chrome extension that captures live captions from Google Meet, then uses AI to auto-generate summaries and let you ask questions about any past meeting.
 
-Built with **React**, **TypeScript**, and **Manifest V3**, Recap provides a simple way to capture and organise meeting conversations in real time.
+Built with **React**, **TypeScript**, and **Manifest V3** on the extension/dashboard side, with a **Node/Express + PostgreSQL (pgvector) + Gemini** backend powering summaries and retrieval-augmented Q&A.
 
 ![Recap widget](./src/Assets/recap-widget.webp)
 
@@ -15,18 +15,21 @@ Built with **React**, **TypeScript**, and **Manifest V3**, Recap provides a simp
 - Pause and resume transcription anytime
 - Minimize the widget — transcription continues in the background
 - Persists per-meeting captions, so you can continue or start fresh if you drop off a call
+- Auto-generates an AI meeting summary (overview, detailed breakdown, next steps) once a call ends
+- Ask AI — query any past meeting and get answers grounded in its actual transcript via a RAG pipeline
 - Built-in dashboard to browse past meetings, view transcripts, and see details like date, duration, speakers, and caption count
 
 ## Tech Stack
 
-- React
-- TypeScript
-- Chrome Extension Manifest V3
+- React, TypeScript, Chrome Extension Manifest V3
+- Node.js, Express
+- PostgreSQL, pgvector
+- Google Gemini API (summaries, embeddings, RAG)
+- Firebase Authentication
 
 ## Roadmap
 
-- AI-generated meeting summaries
-- Ask AI — query your meeting context directly
+- Search across all past meetings at once (cross-meeting semantic search)
 
 ## Installation
 
