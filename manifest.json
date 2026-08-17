@@ -3,6 +3,7 @@
   "name": "Recap: Transcribe Your Google Meet Calls",
   "description": "Transcribe and save your Google Meet conversations with Recap.",
   "version": "1.0.1",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlnc74eRlUgAaC6qliBjaCQlaOlmBWjjscIRLwxMuhhh6uP9MRDhCCcgtrQXgeFwf+T3+XHGiP01u9AsEq3QhlXtTCwTz3Ywsqhx6DyNBUWZQ8nEdRc+8Kvym4rHGJs8iK+Fc5zUW7SGu3rXc7XDzGWp8f9JSyr9RbU1iPEZYAxHqaQfHQQSdzQlb0YVVnqwlCBxuUYKG9+LQ4s6uu7acwjvCz0oA2JFT9rWpVhbHctSTD9j5/pjwFcmhrER9NL3yCwVJyUH2jVzIWITesg8Z4s8cbq6ysHhkg4GeZaJyH1GorPxJobTFjPmqo6QQ65+B2hPAAC6oQ4g9vDgfAgEBnwIDAQAB",
   "action": {
     "default_title": "Open Recap panel",
     "default_popup": "src/popup/index.html",
@@ -32,7 +33,7 @@
   "host_permissions": [
     "https://meet.google.com/*",
     "https://securetoken.googleapis.com/*",
-    "https://recap-backend-five.vercel.app/*"
+    "https://recap-backend-z1yk.onrender.com/*"
   ],
   "externally_connectable": {
     "matches": ["https://recap-two-sable.vercel.app/*"]
