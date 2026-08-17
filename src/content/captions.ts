@@ -1,10 +1,8 @@
 import { CAPTIONS_CONTAINER_SELECTOR } from "./observers/bodyObserver";
 
-const TURN_ON_CAPTIONS_SELECTOR = '[aria-label="Turn on captions"]';
+export const TURN_ON_CAPTIONS_SELECTOR = '[aria-label="Turn on captions"]';
 const HIDE_STYLE_ID = "recap-hide-captions";
 const HIDDEN_ATTR = "data-recap-hidden";
-const MAX_ENABLE_ATTEMPTS = 6;
-const ENABLE_RETRY_DELAY_MS = 500;
 
 export function injectStaticHideStyles() {
   if (document.getElementById(HIDE_STYLE_ID)) return;
@@ -35,19 +33,15 @@ export function hideCaptionsContainer(captionsRegion: Element) {
   wrapper.style.setProperty("pointer-events", "none", "important");
 }
 
-export function autoEnableCaptions(attempt = 0) {
+// Clicks the captions toggle if it exists right now. The caller is
+// responsible for knowing *when* to call this — driven reactively by the
+// DOM observer in bodyObserver.ts (which tracks whether the button exists
+// at all) rather than by polling here, since the button is absent for an
+// unbounded, unpredictable amount of time while a participant is waiting
+// in the lobby to be admitted by a host.
+export function autoEnableCaptions() {
   if (document.querySelector(CAPTIONS_CONTAINER_SELECTOR)) return;
 
   const btn = document.querySelector<HTMLElement>(TURN_ON_CAPTIONS_SELECTOR);
-  if (btn) {
-    btn.click();
-    return;
-  }
-
-  if (attempt >= MAX_ENABLE_ATTEMPTS) {
-    console.warn("[Recap] Could not auto-enable captions");
-    return;
-  }
-
-  setTimeout(() => autoEnableCaptions(attempt + 1), ENABLE_RETRY_DELAY_MS);
+  btn?.click();
 }
