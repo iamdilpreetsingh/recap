@@ -4,6 +4,7 @@ import {
   getMeetingTitleFromDocument,
 } from "./meeting/helpers";
 import { useMeetingStore } from "../store/meetingStore";
+import { autoEnableCaptions } from "./captions";
 
 let handledMeetingUrl: string | null = null;
 
@@ -12,6 +13,7 @@ export async function onMeetingStart() {
   if (!meetingId) return;
 
   injectWidget();
+  autoEnableCaptions();
   if (meetingId === handledMeetingUrl) return;
   handledMeetingUrl = meetingId;
 

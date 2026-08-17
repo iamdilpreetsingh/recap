@@ -5,7 +5,6 @@ import type { Caption } from "../types/global";
 export const useMeetingStore = create<MeetingState>((set) => ({
   meetingActive: false,
   captionsEnabled: false,
-  captionsToggleAvailable: false,
   isConnected: false,
   captions: [],
   activeMeetingId: null,
@@ -16,8 +15,6 @@ export const useMeetingStore = create<MeetingState>((set) => ({
   // actions
   setMeetingActive: (active) => set({ meetingActive: active }),
   setCaptionsEnabled: (enabled) => set({ captionsEnabled: enabled }),
-  setCaptionsToggleAvailable: (available) =>
-    set({ captionsToggleAvailable: available }),
   setIsConnected: (connected) => set({ isConnected: connected }),
   addCaption: (caption) =>
     set((state) => ({ captions: [...state.captions, caption] })),
