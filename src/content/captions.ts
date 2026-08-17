@@ -1,15 +1,9 @@
 import { CAPTIONS_CONTAINER_SELECTOR } from "./observers/bodyObserver";
 
 const TURN_ON_CAPTIONS_SELECTOR = '[aria-label="Turn on captions"]';
-const CALL_CONTROLS_SELECTOR = '[aria-label="Call controls"]';
 const HIDE_STYLE_ID = "recap-hide-captions";
 const HIDDEN_ATTR = "data-recap-hidden";
 const MAX_ENABLE_ATTEMPTS = 6;
-// Google Meet renders no call controls (including the captions toggle)
-// while a participant is waiting in the lobby to be admitted, and there's
-// no signal for how long that wait will be — allow a much longer retry
-// window in that state than the normal "button briefly not found" case.
-const MAX_ADMISSION_WAIT_ATTEMPTS = 1200; // 1200 * 500ms = 10 minutes
 const ENABLE_RETRY_DELAY_MS = 500;
 
 export function injectStaticHideStyles() {
@@ -44,18 +38,13 @@ export function hideCaptionsContainer(captionsRegion: Element) {
 export function autoEnableCaptions(attempt = 0) {
   if (document.querySelector(CAPTIONS_CONTAINER_SELECTOR)) return;
 
-  const inCall = document.querySelector(CALL_CONTROLS_SELECTOR);
-  const btn = inCall
-    ? document.querySelector<HTMLElement>(TURN_ON_CAPTIONS_SELECTOR)
-    : null;
-
+  const btn = document.querySelector<HTMLElement>(TURN_ON_CAPTIONS_SELECTOR);
   if (btn) {
     btn.click();
     return;
   }
 
-  const maxAttempts = inCall ? MAX_ENABLE_ATTEMPTS : MAX_ADMISSION_WAIT_ATTEMPTS;
-  if (attempt >= maxAttempts) {
+  if (attempt >= MAX_ENABLE_ATTEMPTS) {
     console.warn("[Recap] Could not auto-enable captions");
     return;
   }
